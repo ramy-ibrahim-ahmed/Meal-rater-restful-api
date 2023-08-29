@@ -9,10 +9,25 @@ class Meal(models.Model):
     price = models.DecimalField(max_digits=6, decimal_places=2, null=False)
     created = models.DateTimeField(verbose_name="Adding Time", auto_now_add=True)
 
+    def num(self):
+        ratings = Rate.objects.filter(meal=self)
+        return len(ratings)
+
+    def avg(self):
+        ratings = Rate.objects.filter(meal=self)
+        sum = 0
+        for rate in ratings:
+            sum += rate.stars
+        num = len(ratings)
+        if num > 0:
+            return sum / num
+        else:
+            return 0
+
     class Meta:
         verbose_name = "Meal"
         verbose_name_plural = "Meals"
-        ordering = ['id']
+        ordering = ["id"]
 
     def __str__(self):
         return self.title
@@ -30,4 +45,4 @@ class Rate(models.Model):
         index_together = (("user", "meal"),)
         verbose_name = "Rate"
         verbose_name_plural = "Rates"
-        ordering = ['id']
+        ordering = ["id"]
