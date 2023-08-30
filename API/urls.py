@@ -5,11 +5,11 @@ from .views import *
 
 
 router = routers.DefaultRouter()
-router.register('meals', MealViewSet)
-router.register('ratings', RateViewSet)
+router.register("meals", MealViewSet)
+router.register("ratings", RateViewSet)
+router.register("users", UserViewSet)
 
 
 urlpatterns = [
-    path('', include(router.urls)),
+    path("", include(router.urls)),
 ]
-
